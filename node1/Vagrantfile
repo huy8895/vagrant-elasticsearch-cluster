@@ -4,8 +4,8 @@
 # Tạo máy ảo từ box centos/7, gán địa chỉ IP, đặt hostname, gán 2GB bộ nhớ, 2 cpus  
 Vagrant.configure("2") do |config|
     config.vm.box = "centos/7"
-    config.vm.network "private_network", ip: "192.168.56.100"
-    config.vm.hostname = "es-master"
+    config.vm.network "private_network", ip: "192.168.170.131"
+    config.vm.hostname = "node1"
     config.vbguest.auto_update = false
   
     if Vagrant.has_plugin?("vagrant-vbguest")
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provider "virtualbox" do |vb|
-       vb.name = "es-master"
+       vb.name = "es-node1"
        vb.cpus = 2
        vb.memory = "2048"
     end
@@ -33,10 +33,5 @@ Vagrant.configure("2") do |config|
       # fix loi khong tim thay kernel
       sudo yum install -y kernel-devel-$(uname -r)
 
-      #Ghi nội dung sau ra file /etc/hosts để truy cập được các máy theo HOSTNAME
-      sudo echo "192.168.56.100 es-master" >> /etc/hosts
-      sudo echo "192.168.56.101 es-worker1" >> /etc/hosts
-      sudo echo "192.168.56.102 es-worker2" >> /etc/hosts
-      
     SHELL
   end
