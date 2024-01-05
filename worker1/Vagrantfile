@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "centos/7"
+    config.vm.network "private_network", ip: "192.168.56.101"
+    config.vm.hostname = "es-worker1"
+    config.vbguest.auto_update = false
+  
+    if Vagrant.has_plugin?("vagrant-vbguest")
+      config.vbguest.auto_update = false
+    end
+
+    config.vm.provider "virtualbox" do |vb|
+       vb.name = "es-worker1"
+       vb.cpus = 2
+       vb.memory = "2048"
+    end
+     
+    # Chạy file install-docker-kube.sh sau khi nạp Box
+    config.vm.provision "shell", path: "./../install-es-prd.sh"
+  
+    # Chạy các lệnh shell
+    config.vm.provision "shell", inline: <<-SHELL
+      # Đặt pass 123 có tài khoản root và cho phép SSH
+
+	echo "install ssh root/123"
+      echo "123" | passwd --stdin root
+      sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+      systemctl reload sshd
+
+      sudo yum update -y 
+
+      # fix loi khong tim thay kernel
+      sudo yum install -y kernel-devel-$(uname -r)
+
+      #Ghi nội dung sau ra file /etc/hosts để truy cập được các máy theo HOSTNAME
+      sudo echo "192.168.56.100 es-master" >> /etc/hosts
+      sudo echo "192.168.56.101 es-worker1" >> /etc/hosts
+      sudo echo "192.168.56.102 es-worker2" >> /etc/hosts
+  
+    SHELL
+  end
