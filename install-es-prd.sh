@@ -2,8 +2,13 @@
 
 # Cập nhật 12/2019
 
+# Tat Firewall
+systemctl disable firewalld >/dev/null 2>&1
+systemctl stop firewalld
 
-
+# Tat swap
+sed -i '/swap/d' /etc/fstab
+swapoff -a
 
 echo "--->>> start install java"
 sudo yum -y update
