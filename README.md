@@ -4,4 +4,10 @@ scp /etc/elasticsearch/certs/transport.p12 root@192.168.56.132:/etc/elasticsearc
 scp /etc/elasticsearch/certs/http.p12 root@192.168.56.132:/etc/elasticsearch/certs/
 scp /etc/elasticsearch/certs/http_ca.crt root@192.168.56.132:/etc/elasticsearch/certs/
 scp /etc/elasticsearch/elasticsearch.keystore root@192.168.56.132:/etc/elasticsearch/
+
+scp /etc/elasticsearch/certs/transport.p12 root@192.168.56.133:/etc/elasticsearch/certs/
+scp /etc/elasticsearch/certs/http.p12 root@192.168.56.133:/etc/elasticsearch/certs/
+scp /etc/elasticsearch/certs/http_ca.crt root@192.168.56.133:/etc/elasticsearch/certs/
+scp /etc/elasticsearch/elasticsearch.keystore root@192.168.56.133:/etc/elasticsearch/
+
 sudo chmod 644 /etc/elasticsearch/certs/transport.p12
