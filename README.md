@@ -11,3 +11,5 @@ scp /etc/elasticsearch/certs/http_ca.crt root@192.168.56.133:/etc/elasticsearch/
 scp /etc/elasticsearch/elasticsearch.keystore root@192.168.56.133:/etc/elasticsearch/
 
 sudo chmod 644 /etc/elasticsearch/certs/transport.p12
+
+scp root@192.168.56.131:/etc/elasticsearch/elasticsearch.yml .
